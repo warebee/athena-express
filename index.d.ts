@@ -39,6 +39,7 @@ declare module 'athena-express' {
         NextToken?: string;
         QueryExecutionId?: string;
         catalog?: string;
+        parameters?: string[];
     }
     type DirectQueryString = string;
     type QueryExecutionId = string;
