@@ -1,5 +1,5 @@
 declare module 'athena-express' {
-    import { AthenaClient } from '@aws-sdk/client-athena';
+    import { AthenaClient, ResultSetMetadata } from '@aws-sdk/client-athena';
     import { S3Client } from '@aws-sdk/client-s3';
     
     interface ConnectionConfigInterface {
@@ -16,7 +16,8 @@ declare module 'athena-express' {
         skipResults: boolean,
         waitForResults: boolean,
         catalog: string,
-        pagination: string
+        pagination: string,
+        includeMetadata?: boolean
     }
 
     interface QueryResultsInterface<T> {
@@ -33,6 +34,7 @@ declare module 'athena-express' {
         QueryQueueTimeInMillis: number;
         QueryPlanningTimeInMillis: number;
         ServiceProcessingTimeInMillis: number;
+        Metadata?: ResultSetMetadata;
     }
 
     interface QueryObjectInterface {
@@ -43,6 +45,7 @@ declare module 'athena-express' {
         QueryExecutionId?: string;
         catalog?: string;
         parameters?: string[];
+        includeMetadata?: boolean
     }
     type DirectQueryString = string;
     type QueryExecutionId = string;
