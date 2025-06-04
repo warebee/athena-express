@@ -17,7 +17,9 @@ declare module 'athena-express' {
         waitForResults: boolean,
         catalog: string,
         pagination: string,
-        includeMetadata?: boolean
+        includeMetadata?: boolean,
+        resultReuse: boolean,
+        resultReuseMaxAge: number;
     }
 
     interface QueryResultsInterface<T> {
@@ -47,12 +49,18 @@ declare module 'athena-express' {
         parameters?: string[];
         includeMetadata?: boolean
     }
+
+    interface QueryOptionsInterface {
+        resultReuse?: boolean,
+        resultReuseMaxAge?: number;
+    }
+    
     type DirectQueryString = string;
     type QueryExecutionId = string;
 
     type OptionalQueryResultsInterface<T> = Partial<QueryResultsInterface<T>> & Pick<QueryResultsInterface<T>, 'QueryExecutionId'>;
     type QueryResult<T> = OptionalQueryResultsInterface<T>;
-    type QueryFunc<T> = (query: QueryObjectInterface|DirectQueryString|QueryExecutionId) => Promise<QueryResult<T>>;
+    type QueryFunc<T> = (query: QueryObjectInterface|DirectQueryString|QueryExecutionId, values?: string[], options?: QueryOptionsInterface) => Promise<QueryResult<T>>;
 
     class AthenaExpress<T> {
         public new: (config: Partial<ConnectionConfigInterface>) => any;
