@@ -11,6 +11,7 @@ declare module 'athena-express' {
         workgroup: string,
         formatJson: boolean,
         retry: number,
+        timeout?: number,
         ignoreEmpty: boolean,
         encryption: Record<string, string>,
         skipResults: boolean,
